@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import MainPageLayout from '../components/MainPageLayout'
+import {apiGet} from '../misc/config';
 
 const Home = () => {
 
@@ -7,13 +8,11 @@ const Home = () => {
     const [results,setResults]=useState(null);
 
     const onSearch= () => {
-        fetch(`https://api.tvmaze.com/search/shows?q=${input}`)
-        .then(r=> r.json())
-        .then(result => {
+        apiGet(`/search/shows?q=${input}`).then(result => {
             setResults(result);
             console.log(result);
-        })
-    };
+    });
+};
 
     const onInputChange =(ev) => {
         setInput(ev.target.value);
