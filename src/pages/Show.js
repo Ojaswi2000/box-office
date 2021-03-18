@@ -1,5 +1,9 @@
 import React,{useEffect,useReducer} from 'react'
 import {useParams} from 'react-router-dom'
+import Cast from '../components/show/Cast';
+import Details from '../components/show/Details';
+import Seasons from '../components/show/Seasons';
+import ShowMainData from '../components/show/ShowMainData';
 import { apiGet } from '../misc/config';
 
 
@@ -13,9 +17,10 @@ const reducer = (prevState, action) => {
         case 'FETCH_FAILED' :{
             return {...prevState, isLoading : false, errors: action.errors}
         }
-        default : return prevState
+        default : 
+        return prevState;
     }
-}
+};
 
 const initialState ={
     show:null,
@@ -35,16 +40,15 @@ const Show = () => {
     useEffect(()=>{
 
         let isMounted = true;
-        apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`).then(results => {
-
-            
-                if(isMounted) {
-                    dispatch ({'type': 'FETCH_SUCCESS', show :results })
-                }
+        apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`)
+        .then(results => {
+            if(isMounted) {
+                dispatch({type: 'FETCH_SUCCESS', show : results });
+            }
         })
         .catch(err => {
             if(isMounted) {
-                dispatch ( {'type': 'FETCH_FAILED', errors : err.message})
+                dispatch ({type: 'FETCH_FAILED', errors : err.message});
             }
         });
 
@@ -65,7 +69,21 @@ const Show = () => {
     
     return (
         <div>
-            This is the show page
+            <ShowMainData />
+            <div>
+                <h2>Details</h2>
+                <Details />
+            </div>
+
+            <div>
+                <h2>Seasons</h2>
+                <Seasons />
+            </div>
+
+            <div>
+                <h2>Cast</h2>
+                <Cast />
+            </div>
         </div>
     )
 }
