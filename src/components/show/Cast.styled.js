@@ -16,9 +16,9 @@ export const CastList = styled.div`
   }
 
   .pic-wrapper {
-    width: 100px;
+    width: 50px;
     min-width: 50px;
-    height: 100px;
+    height: 50px;
     overflow: hidden;
     border-radius: 50%;
     img {
