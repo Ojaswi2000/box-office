@@ -30,7 +30,8 @@ const ShowGrid = ({data}) => {
                 name={show.name} 
                 image={show.image ? show.image.medium: IMAGE_NOT_FOUND} 
                 summary={show.summary}
-                onStarClick={isStarred}
+                onStarClick={onStarClick}
+                isStarred={isStarred}
                 />
                 );
                 })
